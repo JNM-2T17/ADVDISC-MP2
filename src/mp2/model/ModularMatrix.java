@@ -64,20 +64,22 @@ public class ModularMatrix extends AbstractMatrix {
 		} else {
 			try {
 				int[][] invert = new int[colCount()][rowCount()];
-
+				int det = determinant();
+				int detInv = ModArith.modInverse(det,Driver.MODULUS);
+				
 				for( int i = 0; i < rowCount(); i++ ) {
 					for( int j = 0; j < colCount(); j++ ) {
-						invert[j][i] = ((i + j) % 2 == 0 ? 1 : -1)
-										* CofactorExpansion.det(CofactorExpansion
-																	.minor(matrix,i,j));
+						invert[j][i] = ModArith
+										.modulo(((i + j) % 2 == 0 ? 1 : -1) 
+													* CofactorExpansion
+													.det(CofactorExpansion
+														.minor(matrix,i,j))
+													,Driver.MODULUS);
+						invert[j][i] = ModArith.modulo(invert[j][i] * detInv
+														,Driver.MODULUS);
 					}
 				}
 				Matrix m = new ModularMatrix(invert);
-				int det = determinant();
-				int detInv = ModArith.modInverse(det,Driver.MODULUS);
-				for(int i = 0; i < m.rowCount(); i++ ) {
-					m.scalarRow(detInv,i);
-				}
 				return m;
 			} catch(Exception e) {
 				e.printStackTrace();
