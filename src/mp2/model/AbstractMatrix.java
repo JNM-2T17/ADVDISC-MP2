@@ -60,7 +60,7 @@ public abstract class AbstractMatrix implements Matrix {
 
 	public int get(int row, int col) throws IllegalArgumentException {
 		if( row < 0 || row >= rowCount() || col < 0 
-			|| col >= rowCount() ) {
+			|| col >= colCount() ) {
 			throw new IllegalArgumentException("Index out of bounds");
 		} else {
 			return matrix[row][col];
