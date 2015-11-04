@@ -16,7 +16,7 @@ public abstract class AbstractMatrix implements Matrix {
 	public Matrix transpose() {
 		int[][] grid = new int[colCount()][rowCount()];
 		for( int i = 0; i < rowCount(); i++ ) {
-			for( int j = 0; j < colCount(); i++ ) {
+			for( int j = 0; j < colCount(); j++ ) {
 				grid[j][i] = matrix[i][j];
 			}
 		}
@@ -81,6 +81,12 @@ public abstract class AbstractMatrix implements Matrix {
 			for( int j = 0; j < colCount(); j++ ) {
 				ret += matrix[i][j] + "\t";
 			}  
+			for(Matrix m: augments) {
+				ret += "|\t";
+				for( int j = 0; j < m.colCount(); j++ ) {
+					ret += m.get(i,j) + "\t";
+				}
+			}
 			ret += "\n";
 		}
 		return ret;

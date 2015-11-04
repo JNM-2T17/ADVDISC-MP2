@@ -119,6 +119,8 @@ public class ModularMatrix extends AbstractMatrix {
 			dummy.augment(m);
 		}
 
+		System.out.println(dummy);
+
 		int col = 0;
 		//for each row
 		for( int i = 0; i < rowCount(); i++ ) {
@@ -140,6 +142,7 @@ public class ModularMatrix extends AbstractMatrix {
 					}
 				}
 
+				//if nonzero column
 				if( nonzero ) {
 					if(dummy.get(rowSwitch,col) == 1 && i != rowSwitch) {
 						dummy.switchRow(i,rowSwitch);	
@@ -166,6 +169,24 @@ public class ModularMatrix extends AbstractMatrix {
 				} 
 
 				col++;
+			}
+		}
+
+		for( int i = 0; i < dummy.rowCount(); i++ ) {
+			int leader = 0;
+			for( leader = 0; leader < dummy.colCount(); leader++ ) {
+				if( dummy.get(i,leader) == 1 ) {
+					break;
+				}
+			}
+			if( leader < dummy.colCount()) {
+				for( int j = i - 1; j >= 0; j-- ) {
+					int temp = dummy.get(j,leader);
+					dummy.addColumn(-temp,i,j);
+					System.out.println(-temp + "R" + i 
+												+ " + R" + j + "-> R" + j + "\n" 
+												+ dummy);
+				}
 			}
 		}
 

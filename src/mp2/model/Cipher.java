@@ -15,25 +15,66 @@ public class Cipher
 		return convertToString(m.multiply(convertToMatrix(s)));
 	}
 
-	private int[][] findIndependent(String s1, String s2)
+	public Matrix deriveCipher(String plainText, String cipherText)
 	{
-return null;
-	}
+		//convert to matrices
+		Matrix m1 = convertToMatrix(cipherText);
+		Matrix m2 = convertToMatrix(plainText);
 
-	private boolean isIndependent(int[][] intArray)
-	{
-return false;
+		//pump plaintext
+		while(plainText.length() < cipherText.length() ) {
+			plainText += " ";
+		}
+
+		//reduce plaintext of them to reduced row echelon
+		Matrix rre = m2.reducedRowEchelon();
+
+		//find leading 1's
+		int[] leaders = new int[cipherDim];
+		int leaderCtr = 0;
+
+
+		for( int i = 0; leaderCtr < cipherDim && i < rre.rowCount(); i++ ) {
+			for(int j = 0; j < rre.colCount(); j++) {
+				// save columns with leading 1's
+				if( rre.get(i,j) == 1 ) {
+					leaders[leaderCtr] = j;
+					leaderCtr++;
+					break;
+				}
+			}
+		}
+
+		//if not enough vectors
+		if( leaderCtr < cipherDim ) {
+			return null;
+		} else {
+			int[][] cMatrix = new int[cipherDim][cipherDim];
+			int[][] pMatrix = new int[cipherDim][cipherDim];
+
+			//save vectors
+			for( int i = 0; i < cipherDim; i++ ) {
+				for( int j = 0; j < m1.rowCount(); j++ ) {
+					cMatrix[j][i] = m1.get(j,leaders[i]);
+					pMatrix[j][i] = m2.get(j,leaders[i]);
+				}
+			}
+
+			Matrix c = new ModularMatrix(cMatrix);
+			Matrix p = new ModularMatrix(pMatrix);
+			p = p.invert();
+			return c.multiply(p);
+			/*System.out.println(c);
+			c.augment(p);
+			c = c.reducedRowEchelon();
+			return c.getAugment(0).transpose();*/
+		}
 	}
 
 	public String decipher(String s, Matrix m)
 	{
 		Matrix i = m.invert();
 		return convertToString(m.invert().multiply(convertToMatrix(s)));
-	}
-
-	public Matrix deriveCipher(String s1, String s2)
-	{
-return null;
 	}
 
 	private Matrix convertToMatrix(String s)
