@@ -55,19 +55,17 @@ public class Cipher
 			//save vectors
 			for( int i = 0; i < cipherDim; i++ ) {
 				for( int j = 0; j < m1.rowCount(); j++ ) {
-					cMatrix[j][i] = m1.get(j,leaders[i]);
-					pMatrix[j][i] = m2.get(j,leaders[i]);
+					cMatrix[i][j] = m1.get(j,leaders[i]);
+					pMatrix[i][j] = m2.get(j,leaders[i]);
 				}
 			}
 
 			Matrix c = new ModularMatrix(cMatrix);
 			Matrix p = new ModularMatrix(pMatrix);
-			p = p.invert();
-			return c.multiply(p);
-			/*System.out.println(c);
+			System.out.println(c);
 			c.augment(p);
 			c = c.reducedRowEchelon();
-			return c.getAugment(0).transpose();*/
+			return c.getAugment(0).transpose().invert();
 		}
 	}
 
