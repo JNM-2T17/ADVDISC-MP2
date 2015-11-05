@@ -2,7 +2,15 @@ package mp2.model;
 
 import mp2.Driver;
 
+/**
+ * This class handles the modular operations in a matrix
+ * @author Austin Fernandez
+ */
 public class ModularMatrix extends AbstractMatrix {
+	/**
+	 * sets all values modulo modulus in Driver
+	 * @param grid contents of matrix
+	 */
 	public ModularMatrix(int[][] grid) {
 		super(grid);
 		for(int i = 0; i < matrix.length; i++) {
@@ -12,10 +20,21 @@ public class ModularMatrix extends AbstractMatrix {
 		}
 	}
 
+	/**
+	 * returns a ModularMatrix given the grid
+	 * @param grid grid with matrix contents
+	 * @return ModularMatrix given the grid
+	 */
 	protected Matrix ofType(int[][] grid) {
 		return new ModularMatrix(grid);
 	}
 
+	/**
+	 * multiplies a row by a scalar
+	 * @param scalar scalar to multiply with
+	 * @param row to multiply scalar with
+	 * @throws IllegalArgumentException if row out of bounds
+	 */
 	public void scalarRow(int scalar, int row) 
 		throws IllegalArgumentException {
 		if( row < 0 || row >= rowCount() ) {
@@ -32,9 +51,17 @@ public class ModularMatrix extends AbstractMatrix {
 		}
 	}
 
+	/**
+	 * adds a multiple of a column to another column
+	 * @param scalar scalar for row to add
+	 * @param row1 row to multiply by zero-indexed
+	 * @param row2 row to replace zero-indexed
+	 * @throws IllegalArgumentException if row out of bounds
+	 */
 	public void addColumn(int scalar, int row1, int row2 ) 
 		throws IllegalArgumentException {
-		if( row1 < 0 || row1 >= rowCount() || row2 < 0 || row2 >= rowCount() ) {
+		if( row1 < 0 || row1 >= rowCount() || row2 < 0 || row2 >= rowCount() 
+			|| row1 == row2) {
 			throw new IllegalArgumentException("Row out of bounds");
 		} else {
 			for(int i = 0; i < colCount(); i++ ) {
@@ -49,15 +76,10 @@ public class ModularMatrix extends AbstractMatrix {
 		}	
 	}
 
-	public int determinant() {
-		try {
-			return CofactorExpansion.det(matrix);
-		} catch( Exception e ) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
+	/**
+	 * gets the inverse of this matrix
+	 * @return null if singular, inverse otherwise
+	 */
 	public Matrix invert() {
 		if( rowCount() != colCount() || determinant() == 0 ) {
 			return null;
@@ -88,6 +110,11 @@ public class ModularMatrix extends AbstractMatrix {
 		return null;
 	}
 
+	/**
+	 * returns the product of this matrix with another matrix
+	 * @param m multiplier matrix
+	 * @return product of the matrices or null if cannot perform operation
+	 */
 	public Matrix multiply(Matrix m) {
 		if( colCount() != m.rowCount() ) {
 			return null;
@@ -105,6 +132,10 @@ public class ModularMatrix extends AbstractMatrix {
 		}
 	}
 	
+	/**
+	 * returns the reduced row echelon form of this matrix
+	 * @return reduced row echelon form of this matrix
+	 */
 	public Matrix reducedRowEchelon() {
 		int[][] grid = new int[rowCount()][colCount()];
 		for( int i = 0; i < rowCount(); i++ ) {

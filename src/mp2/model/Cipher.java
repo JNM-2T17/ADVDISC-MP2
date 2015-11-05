@@ -1,22 +1,64 @@
 package mp2.model;
 
-public class Cipher
-{
+/**
+ * Handles enciphering, deciphering, and cipher cracking
+ * @author Jonah Syfu
+ * @author Austin Fernandez
+ */
+public class Cipher {
 	private int cipherDim;
 
-	public Cipher(int x)
-	{
+	/**
+	 * basic constructor
+	 * @param x dimension of cipher matrices
+	 */
+	public Cipher(int x) {
 		cipherDim = x;
 	}
 
-	public String encipher(String s, Matrix m)
-	{
+	/**
+	 * enciphers a string using a matrix
+	 * @param s string to encipher
+	 * @param m matrix to use
+	 * @return enciphered string
+	 */
+	public String encipher(String s, Matrix m) {
 		Matrix i = m.invert();
 		return convertToString(m.multiply(convertToMatrix(s)));
 	}
 
-	public Matrix deriveCipher(String plainText, String cipherText)
-	{
+	/**
+	 * deciphers a string
+	 * @param s string to decipher
+	 * @param m original enciphering matrix
+	 * @return deciphered string
+	 */
+	public String decipher(String s, Matrix m) {
+		Matrix i = m.invert();
+		return convertToString(m.invert().multiply(convertToMatrix(s)));
+	}
+
+	/**
+	 * sets the dimension of the cipher
+	 * @param dimension new dimension
+	 * @throws IllegalArgumentException if dimension is less than 2
+	 */
+	public void setDimension(int dimension) throws IllegalArgumentException {
+		if( dimension < 2) {
+			throw new IllegalArgumentException("Illegal Dimension: must be at" 
+												+ " least 2");
+		} else {
+			cipherDim = dimension;
+		}
+	}
+
+	/**
+	 * derives the enciphering matrix
+	 * @param plainText original text
+	 * @param cipherText enciphered text
+	 * @return enciphering matrix
+	 */
+	public Matrix deriveCipher(String plainText, String cipherText) {
 		//convert to matrices
 		Matrix m1 = convertToMatrix(cipherText);
 		Matrix m2 = convertToMatrix(plainText);
@@ -69,12 +111,11 @@ public class Cipher
 		}
 	}
 
-	public String decipher(String s, Matrix m)
-	{
-		Matrix i = m.invert();
-		return convertToString(m.invert().multiply(convertToMatrix(s)));
-	}
-
+	/**
+	 * converts a string into a matrix
+	 * @param s string to convert
+	 * @return matrix representation of s
+	 */
 	private Matrix convertToMatrix(String s)
 	{
 		int[][] matrix = new int[cipherDim][(int)Math.ceil(s.length() 
@@ -89,6 +130,11 @@ public class Cipher
 		return new ModularMatrix(matrix);
 	}
 
+	/**
+	 * converts a matrix to a string
+	 * @param m matrix to convert
+	 * @return string representation of matrix
+	 */
 	public String convertToString(Matrix m)
 	{
  		String ret = "";

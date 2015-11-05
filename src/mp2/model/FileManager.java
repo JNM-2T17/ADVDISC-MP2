@@ -12,8 +12,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
+/**
+ * handles file input/output
+ */
 public class FileManager {
+	/**
+	 * writes a text file
+	 * @param text text to save
+	 * @param filename file to save to
+	 */
 	public static void writeText(String text,String filename) {
 		
 		try(PrintWriter pw = new PrintWriter(
@@ -25,6 +32,11 @@ public class FileManager {
 		}
 	}
 
+	/**
+	 * writes a cipher to a binary file
+	 * @param m matrix to write
+	 * @param filename file ot write to
+	 */
 	public static void writeCipher(Matrix m, String filename) {
 		
 		try (DataOutputStream dos = new DataOutputStream(
@@ -42,6 +54,11 @@ public class FileManager {
 		}
 	}
 
+	/**
+	 * reads a text from a file
+	 * @param filename file to save to
+	 * @return text read from file
+	 */
 	public static String readText(String filename) {
 		try (BufferedReader br = new BufferedReader(
 									new FileReader(new File(filename)))) {
@@ -60,6 +77,11 @@ public class FileManager {
 		}
 	}
 
+	/**
+	 * reads a matrix from a file
+	 * @param filename file to save to
+	 * @return matrix read from file
+	 */
 	public static Matrix readCipher(String filename) {
 		try( DataInputStream dis = new DataInputStream(
 									new FileInputStream(new File(filename)))) {

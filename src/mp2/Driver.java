@@ -42,7 +42,8 @@ public class Driver {
 		System.out.println("Enciphering " + s1);
 
 		/*m = c.deriveCipher(s1,s2);
-		System.out.println(m);*/
+		System.out.println(m);
+		FileManager.writeCipher(m,cipher_filename);*/
 
 		String enc = c.encipher(s1,m);
 		System.out.println("Enciphered: " + enc);
