@@ -58,20 +58,5 @@ public class Driver {
 		String dec = c.decipher(enc2,m);
 		//System.out.println("Deciphered: " + dec);
 		FileManager.writeText(dec,plain_filename);
-		int[][] cInt = new int[][]{
-			{4,1,20},
-			{21,17,14},
-			{21,20,13}
-		};
-		int[][] pInt = new int[][]{
-			{20,18,5},
-			{2,5,1},
-			{3,5,0}
-		};
-
-		Matrix cM = new ModularMatrix(cInt);
-		Matrix p = new ModularMatrix(pInt);
-		cM.augment(p);
-		cM = cM.reducedRowEchelon();
 	}
 }
