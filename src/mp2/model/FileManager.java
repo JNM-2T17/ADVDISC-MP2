@@ -26,7 +26,14 @@ public class FileManager {
 		try(PrintWriter pw = new PrintWriter(
 								new BufferedWriter(
 									new FileWriter(new File(filename))))) {
-			pw.print(text);
+			String[] parts = text.split("\n");
+			for( int i = 0; i < parts.length; i++) {
+				if( i < parts.length - 1) {
+					pw.println(parts[i]);
+				} else {
+					pw.print(parts[i]);
+				}
+			}
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -66,10 +73,10 @@ public class FileManager {
 			String temp;
 			do {
 				temp = br.readLine();
-				if( temp != null && temp.length() > 0 ) {
+				if( temp != null ) {
 					ret += (ret.length() == 0 ? "" : "\n") + temp;
 				}
-			} while(temp != null && temp.length() > 0);
+			} while(temp != null );
 			return ret;
 		} catch(IOException ioe) {
 			ioe.printStackTrace();

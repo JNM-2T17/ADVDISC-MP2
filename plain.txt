@@ -1,1 +1,32 @@
-Best Ever
+ADVDISC Group Project 2
+Other Applications of Matrices and Linear Algebra in Computer Science Research Areas
+
+Deadline: Dec 1, 2015 (Tuesday), 10:00 am
+
+Write a program that shows the use of matrices and linear algebra in a specific research area in Computer Science.
+
+The input and output depends on the topic. Thus, think/plan about this very well to ensure usability and proper user-interface.
+
+Ensure also that the system is verifiable. Meaning, the system should display needed intermediate and final results/outputs to be able to check the correctness of the results.
+
+Note the ff:
+
+1. You will not be given a lecture on these topics. You have to do research and self-reading to enrich your knowledge in other areas in Computer Science.
+2. You can choose any programming language but you cannot call libraries for the operations. That is, you have to program the operations with matrices.
+3. You can call functions/methods for drawing only (ex. draw line).
+4. Your code will be checked.
+5. All members should contribute to the development of the software.
+
+Deliverables
+
+Submit on or before the deadline the ff:
+
+1. code (online submission)
+2. documentation (online submission and print out) to contain the ff:
+	a. Cover page
+	b. Contribution of each member
+c. Introduction of the Research Area
+d. Use of Matrices and Linear Algebra methods in the Research Area (discuss the formulae, matrices and operations, linear algebra methods used in the chosen topic, show illustrations and samples)
+e. Design (discuss the architecture of your software (modules), discuss algorithms and data structures that shows the use of matrices, operations, linear algebra)
+f. Implementation (discuss what language you used, what specific functions/methods you used, etc)
+	g. Conclusion 

@@ -122,8 +122,18 @@ public class Cipher {
 												* 1.0 / cipherDim)];
 		for(int i = 0; i < matrix[0].length; i++) {
 			for( int j = 0; j < cipherDim; j++ ) {
-				matrix[j][i] = i * cipherDim + j < s.length() 
-								? (int)s.charAt(i * cipherDim + j) : 0;
+				int n;
+				if( i * cipherDim + j < s.length() ) { 
+					n = (int)s.charAt(i * cipherDim + j) - 32;
+					if( n == -22 ) {
+						n = 95;
+					} else if( n == -23 ) {
+						n = 96;
+					}
+				} else {
+					n = 0;
+				}
+				matrix[j][i] = n;
 			}
 		}
 
@@ -140,7 +150,15 @@ public class Cipher {
  		String ret = "";
  		for( int i = 0; i < m.colCount(); i++ ) {
  			for( int j = 0; j < m.rowCount(); j++ ) {
- 				ret += "" + (char)m.get(j,i);
+ 				int n = m.get(j,i);
+ 				if( n == 95 ) {
+ 					n = 10;
+ 				} else if( n == 96) {
+ 					n = 9;
+ 				} else {
+ 					n += 32;
+ 				}
+ 				ret += "" + (char)n;
  			}
  		}
  		return ret;
