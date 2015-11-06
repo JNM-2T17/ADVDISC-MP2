@@ -53,23 +53,43 @@ public class Cipher {
 	}
 
 	/**
+	 * pumps a string to be of length of at least square of dimension
+	 */
+	private String pump(String s) {
+		while( s.length() < cipherDim * cipherDim) {
+			s += " ";
+		}
+		return s;
+	}
+
+	/**
 	 * derives the enciphering matrix
 	 * @param plainText original text
 	 * @param cipherText enciphered text
 	 * @return enciphering matrix
 	 */
 	public Matrix deriveCipher(String plainText, String cipherText) {
-		//convert to matrices
-		Matrix m1 = convertToMatrix(cipherText);
-		Matrix m2 = convertToMatrix(plainText);
+		plainText = pump(plainText);
+		cipherText = pump(cipherText);
 
 		//pump plaintext
 		while(plainText.length() < cipherText.length() ) {
 			plainText += " ";
 		}
 
-		//reduce plaintext of them to reduced row echelon
+		while( cipherText.length() < plainText.length() ) {
+			cipherText += " ";
+		}
+
+		//convert to matrices
+		Matrix m1 = convertToMatrix(cipherText);
+		Matrix m2 = convertToMatrix(plainText);
+
+		//reduce plaintext matrix to reduced row echelon
 		Matrix rre = m2.reducedRowEchelon();
+		if( rre.determinant() == 0 || m1.determinant() == 0) {
+			return null;
+		}
 
 		//find leading 1's
 		int[] leaders = new int[cipherDim];
@@ -104,7 +124,6 @@ public class Cipher {
 
 			Matrix c = new ModularMatrix(cMatrix);
 			Matrix p = new ModularMatrix(pMatrix);
-			System.out.println(c);
 			c.augment(p);
 			c = c.reducedRowEchelon();
 			return c.getAugment(0).transpose().invert();
@@ -137,7 +156,8 @@ public class Cipher {
 			}
 		}
 
-		return new ModularMatrix(matrix);
+		Matrix m = new ModularMatrix(matrix);
+		return m;
 	}
 
 	/**

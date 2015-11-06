@@ -141,16 +141,14 @@ public class ModularMatrix extends AbstractMatrix {
 		for( int i = 0; i < rowCount(); i++ ) {
 			for( int j = 0; j < colCount(); j++ ) {
 				grid[i][j] = matrix[i][j];
-				System.out.print("" + grid[i][j]);
 			}
-			System.out.println();
 		}
 		Matrix dummy = new ModularMatrix(grid);
 		for( Matrix m: augments ) {
 			dummy.augment(m);
 		}
 
-		System.out.println(dummy);
+		// System.out.println(dummy);
 
 		int col = 0;
 		//for each row
@@ -177,24 +175,24 @@ public class ModularMatrix extends AbstractMatrix {
 				if( nonzero ) {
 					if(dummy.get(rowSwitch,col) == 1 && i != rowSwitch) {
 						dummy.switchRow(i,rowSwitch);	
-						System.out.println("R" + i + "<-> R" + rowSwitch + "\n" 
-											+ dummy);
+						// System.out.println("R" + (i + 1) + "<-> R" + (rowSwitch + 1) + "\n" 
+						// 					+ dummy);
 					} else if( dummy.get(i,col) != 1 ) {
 						int temp = ModArith.modInverse(dummy.get(i,col)
 														,Driver.MODULUS);
 						dummy.scalarRow(temp,i);
-						System.out.println(temp + "R" + i 
-											+ "-> R" + rowSwitch + "\n" 
-											+ dummy);
+						// System.out.println(temp + "R" + (i + 1) 
+						// 					+ "-> R" + (rowSwitch + 1) + "\n" 
+						// 					+ dummy);
 					}
 					
 					for(int j = i + 1; j < rowCount(); j++ ) {
 						if( dummy.get(j,col) != 0 ) {
 							int temp = dummy.get(j,col);
 							dummy.addColumn(-temp,i,j);
-							System.out.println(-temp + "R" + i 
-												+ " + R" + j + "-> R" + j + "\n" 
-												+ dummy);
+							// System.out.println(-temp + "R" + (i + 1) 
+							// 					+ " + R" + (j + 1) + "-> R" + (j + 1) + "\n" 
+							// 					+ dummy);
 						}
 					}
 				} 
@@ -214,9 +212,9 @@ public class ModularMatrix extends AbstractMatrix {
 				for( int j = i - 1; j >= 0; j-- ) {
 					int temp = dummy.get(j,leader);
 					dummy.addColumn(-temp,i,j);
-					System.out.println(-temp + "R" + i 
-												+ " + R" + j + "-> R" + j + "\n" 
-												+ dummy);
+					// System.out.println(-temp + "R" + (i + 1) 
+					// 							+ " + R" + (j + 1) + "-> R" + (j + 1) + "\n" 
+					// 							+ dummy);
 				}
 			}
 		}

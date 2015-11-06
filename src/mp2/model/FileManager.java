@@ -100,7 +100,6 @@ public class FileManager {
 				for( int j = 0; j < col; j++ ) {
 					matrix[i][j] = dis.readInt();
 				}
-				System.out.println();
 			}
 			return new ModularMatrix(matrix);
 		} catch(IOException ioe) {
