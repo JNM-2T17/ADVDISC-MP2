@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 
 /**
  * handles file input/output
+ * @author Austin Fernandez
  */
 public class FileManager {
 	/**

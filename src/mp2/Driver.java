@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import mp2.model.*;
 
+/**
+ * @author Austin Fernandez
+ */
 public class Driver {
 	public static final int MODULUS = 97;
 

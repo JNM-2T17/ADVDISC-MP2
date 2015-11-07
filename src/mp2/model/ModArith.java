@@ -2,6 +2,7 @@ package mp2.model;
 
 /**
  * handles modular arithmetic
+ * @author Austin Fernandez
  * @author John Joseph Andres
  * @author Jonah Syfu
  */
