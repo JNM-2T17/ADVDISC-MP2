@@ -1,0 +1,111 @@
+User takes a string
+User defines a cipher
+User enciphers the string
+User decides to decipher the ciphertext
+User provides cipher and plaintext
+User decodes cipher
+
+Enciphering Matrix
+Deciphering Matrix
+Ciphertext
+Plaintext
+
+User Story: User can encipher a string to increase security
+Estimated Time:
+Priority: 10
+Pre-conditions: User has plaintext
+Scenario:
+	1. User chooses to encipher plaintext
+	2. User may load a text file.
+	3. User inputs plain text
+	4. User can choose to load a cipher
+		4.a. User selects file from their file system.
+	5. User can choose to input a cipher
+		5.a. User selects whether to use Hill-2 Cipher or Hill-3 Cipher
+		5.b. User inputs values of enciphering matrix
+		5.c. System checks if matrix is valid(determinant is nonzero and is not divisible by 127)
+		5.d. If not valid, return to 5.b
+	6. User selects to encrypt the plaintext
+	7. System encrypts plaintext.
+	8. User can choose to save ciphertext file.
+		8.a. User selects directory to save ciphertext file to.
+Acceptance Criteria:
+	Check if system ensures loaded file is a text file.
+	Check if system loaded file correctly.
+	Check if system ensures cipher file is valid.
+	Check if system ensures inputted matrix is valid.
+	Check if ciphertext is correct.
+	Check if system successfully saves ciphertext file.
+
+
+User Story: User can choose to decipher ciphertext to discover the original plaintext
+Estimated Time: 
+Priority: 20
+Pre-conditions: User has ciphertext and a ready enciphering matrix.
+Scenario:
+	1. User chooses to decipher matrix.
+	2. User may choose to load a cipher file
+		2.a. User selects cipher file
+	3. User may input cipher matrix
+		3.a. User selects whether to use Hill-2 Cipher or Hill-3 Cipher
+		3.b. User inputs values of enciphering matrix
+		3.c. System checks if matrix is valid(determinant is nonzero and is not divisible by 127)
+		3.d. If not valid, return to 3.b
+	4. System computes modular inverse of enciphering matrix.
+	5. User may choose to load ciphertext file
+		5.a User selects ciphertext file.
+	6. User may input ciphertext.
+	7. User selects to decipher message
+	8. System deciphers matrix using modular inverse of given matrix.
+	9. User may choose to save plaintext file
+		9.a. User selects directory to save plaintext
+
+Acceptance Criteria:
+	Check if system ensures loaded cipher file is a cipher file
+	Check if system loaded file correctly
+	Check if system ensures cipher matrix is valid
+	Check if inverted matrix is correct
+	Check if system ensures loaded ciphertext file is a text file
+	Check if deciphering is correct
+	Check if system successfully saves ciphertext file.
+
+User Story: User can choose to derive the enciphering matrix given plaintext and ciphertext to 
+Estimated Time: 
+Priority: 30
+Pre-conditions: User has plaintext and ciphertext
+Scenario: 
+	1. User can choose to load a plaintext file.
+		1.a. User selects file from directory.
+	2. User can input plaintext.
+	3. User can choose to load a ciphertext file.
+		3.a. User selects file from directory.
+	4. User can input ciphertext.
+	5. User selects to derive cipher matrix
+	6. System computes cipher matrix.
+	7. System displays cipher matrix.
+Acceptance Criteria:
+	Check if system ensures plaintext file is a text file
+	Check if system loaded plaintext file correctly
+	Check if system ensures ciphertext file is a text file
+	Check if system ensures ciphertext file is a text file
+	Check if system computes cipher matrix correctly.
+
+Save Ciphertext
+Load Ciphertext
+Save Plaintext
+Load Plaintext
+Save Cipher
+Load Cipher
+
+public static final int SAVE = 0;
+public static final int LOAD = 1;
+public static final int CIPHERTEXT = 2;
+public static final int PLAINTEXT = 3;
+public static final int CIPHER = 4;
+
+setVisible(int action,int type, boolean visible) :  void
+
+FileMenu fm = new FileMenu();
+
+fm.setVisible(FileMenu.SAVE,FileMenu.CIPHER,true);
+fm.setVisible(FileMenu.LOAD,FileMenu.CIPHERTEXT,false);
