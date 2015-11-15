@@ -6,4 +6,5 @@
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\model\\Matrix.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\model\\ModArith.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\model\\ModularMatrix.java"
-"C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\MainWinow.java"
+"C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\MainWindow.java"
+"C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\layout\\AGBLayout.java"

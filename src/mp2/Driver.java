@@ -3,6 +3,7 @@ package mp2;
 import java.util.Scanner;
 
 import mp2.model.*;
+import mp2.view.MainWindow;
 
 /**
  * @author Austin Fernandez
@@ -26,6 +27,8 @@ public class Driver {
 		String plain_filename = "plain.txt";
 		String ciphertext_filename = "cipher.txt";
 		
+		new MainWindow();
+
 		Matrix m = new ModularMatrix(matrix);
 		
 		/*FileManager.writeCipher(m,cipher_filename);*/
