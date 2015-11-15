@@ -53,7 +53,8 @@ public class MainWindow extends JFrame {
 		setBackground(Color.WHITE);
 		setTitle("ADVDISC MP2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 500);
+		setSize(300,500);
+		setLocationRelativeTo(null);
 
 		menuBar = new JMenuBar();
 		menuBar.setOpaque(true);
