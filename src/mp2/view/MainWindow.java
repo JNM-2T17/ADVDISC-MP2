@@ -122,7 +122,7 @@ public class MainWindow extends JFrame {
 		lblCredits = new JLabel("<html>&copy; Amadora, Andres, Fernandez, Syfu</html>");
 		lblCredits.setFont(new Font("Sans Serif", Font.PLAIN, 12));
 		lblCredits.setHorizontalAlignment(SwingConstants.CENTER);
-		AGBLayout.addComp(contentPane,lblCredits,0,8,1,1,100,100
+		AGBLayout.addComp(contentPane,lblCredits,0,8,1,1,100,100,10,10,10,10
 							,GridBagConstraints.EAST,GridBagConstraints.NONE);
 
 
