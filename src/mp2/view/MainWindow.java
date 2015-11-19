@@ -48,6 +48,7 @@ public class MainWindow extends JFrame {
 
 
 	public MainWindow() {
+
 		setResizable(false);
 		setForeground(new Color(51, 0, 153));
 		setBackground(Color.WHITE);
@@ -125,8 +126,8 @@ public class MainWindow extends JFrame {
 							,GridBagConstraints.EAST,GridBagConstraints.NONE);
 
 
-		
 
-		setVisible(true);	
+
+		setVisible(true);
 	}
 }
