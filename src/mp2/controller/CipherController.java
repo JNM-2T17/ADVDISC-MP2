@@ -11,6 +11,7 @@ public class CipherController implements IController {
 	private MainWindow mainWindow;
 	private MainPanel mainPanel;
 	private CipherPanel cipherPanel;
+	private DecipherPanel decipherPanel;
 	private CipherInputFrame cipherInputFrame;
 
 	public CipherController() {
@@ -19,6 +20,7 @@ public class CipherController implements IController {
 		mainWindow = new MainWindow(this);
 		mainPanel = new MainPanel(this);
 		cipherPanel = new CipherPanel(this);
+		decipherPanel = new DecipherPanel(this);
 		cipherInputFrame = new CipherInputFrame(this);
 		setScreen(MAIN);
 
@@ -37,6 +39,7 @@ public class CipherController implements IController {
 			this.cipher = newCipher;
 			hill = new Cipher(this.cipher.rowCount());
 			cipherPanel.setMatrix(this.cipher);
+			decipherPanel.setMatrix(this.cipher);
 			cipherInputFrame.setVisible(false);
 		}
 	}
@@ -50,12 +53,20 @@ public class CipherController implements IController {
 		}
 	}
 
-	public void cipher(String plaintext) {
-		cipherPanel.setCiphertext(hill.encipher(plaintext,cipher));
+	public void cipher(String plaintext) throws Exception {
+		if( cipher == null ) {
+			throw new Exception("Please Input a Cipher Matrix");
+		} else {
+			cipherPanel.setCiphertext(hill.encipher(plaintext,cipher));
+		}
 	}
 
-	public void decipher(String ciphertext) {
-
+	public void decipher(String ciphertext) throws Exception {
+		if( cipher == null ) {
+			throw new Exception("Please Input a Cipher Matrix");
+		} else {
+			decipherPanel.setPlaintext(hill.decipher(ciphertext,cipher));
+		}
 	}
 
 	public void derive(String plaintext, String ciphertext) {
@@ -69,7 +80,8 @@ public class CipherController implements IController {
 				mainWindow.setMain(cipherPanel);
 				break;
 			case DECIPHER:
-				mainWindow.setMain(null);
+				mainWindow.setSize(900,500);
+				mainWindow.setMain(decipherPanel);
 				break;
 			case CRACK_CIPHER:
 				mainWindow.setMain(null);

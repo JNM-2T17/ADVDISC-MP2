@@ -11,6 +11,7 @@
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\model\\ModularMatrix.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\CipherInputFrame.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\CipherPanel.java"
+"C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\DecipherPanel.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\DecipherWindow.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\MainPanel.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\MainWindow.java"

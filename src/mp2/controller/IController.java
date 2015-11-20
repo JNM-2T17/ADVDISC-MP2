@@ -10,8 +10,8 @@ public interface IController {
 
 	public void setCipher(int[][] cipher) throws InvalidCipherException;
 	public void inputCipher(int dim) throws Exception;
-	public void cipher(String plaintext);
-	public void decipher(String ciphertext);
+	public void cipher(String plaintext) throws Exception;
+	public void decipher(String ciphertext) throws Exception;
 	public void derive(String plaintext, String ciphertext);
 	public void setScreen(int screen);
 	public void clearCipher();

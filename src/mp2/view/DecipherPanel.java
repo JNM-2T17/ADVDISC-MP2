@@ -24,8 +24,8 @@ import mp2.controller.IController;
 import mp2.model.Matrix;
 import mp2.view.layout.AGBLayout;
 
-public class CipherPanel extends JPanel {
-    private JPanel encipherPane;
+public class DecipherPanel extends JPanel {
+    private JPanel enplainPane;
     private JPanel optionsPane;
     private JPanel choicePane;
     private JLabel choiceLabel;
@@ -37,17 +37,17 @@ public class CipherPanel extends JPanel {
     private JButton btnClearCipher;
     private JButton btnClearText;
     private JButton btnClearAll;
-    private JButton btnEncipher;
+    private JButton btnDecipher;
     private JScrollPane textPane;
     private JTextArea textArea;
-    private JPanel cipherTextPane;
-    private JScrollPane cipherPane;
-    private JTextArea cipherArea;
+    private JPanel plaintextPane;
+    private JScrollPane plainPane;
+    private JTextArea plainArea;
     
     private IController control;
     boolean inputting;
 
-	public CipherPanel(IController control) {
+	public DecipherPanel(IController control) {
         super( new AGBLayout() );
         this.control = control;
 
@@ -112,21 +112,21 @@ public class CipherPanel extends JPanel {
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
 
-        btnEncipher = new JButton("ENCIPHER");
-        btnEncipher.setFont(new Font("Verdana", Font.PLAIN, 14));
-        btnEncipher.addActionListener(new EncipherListener());
-        AGBLayout.addComp(optionsPane,btnEncipher,0,4,2,1,100,100,5,40,10,40
+        btnDecipher = new JButton("DECIPHER");
+        btnDecipher.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnDecipher.addActionListener(new DecipherListener());
+        AGBLayout.addComp(optionsPane,btnDecipher,0,4,2,1,100,100,5,40,10,40
                           ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         AGBLayout.addComp(this,optionsPane,0,0,1,1,100,100,20,20,20,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
-        encipherPane = new JPanel();
-        encipherPane.setLayout(new BorderLayout());
+        enplainPane = new JPanel();
+        enplainPane.setLayout(new BorderLayout());
         
         textArea = new JTextArea(20,20);
 		textArea.setFont(new Font("Verdana", Font.PLAIN, 12));
-        textArea.setText("Enter plain text here...");
+        textArea.setText("Enter ciphertext here...");
         textArea.setBackground(Color.WHITE);
         textArea.setOpaque(true);
         textArea.addFocusListener(new TextAreaListener());
@@ -136,27 +136,27 @@ public class CipherPanel extends JPanel {
                                     .VERTICAL_SCROLLBAR_AS_NEEDED
                                     ,JScrollPane
                                     .HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		encipherPane.add(textPane,BorderLayout.CENTER);
+		enplainPane.add(textPane,BorderLayout.CENTER);
 
-        AGBLayout.addComp(this,encipherPane,1,0,1,1,100,100,20,0,20,10
+        AGBLayout.addComp(this,enplainPane,1,0,1,1,100,100,20,0,20,10
                           ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
-        cipherTextPane = new JPanel(new BorderLayout());
+        plaintextPane = new JPanel(new BorderLayout());
 
-        cipherArea = new JTextArea(20,20);
-        cipherArea.setFont(new Font("Verdana", Font.PLAIN, 12));
-        cipherArea.setText("Ciphertext here...");
-        cipherArea.setEditable(false);
-        cipherArea.setBackground(Color.WHITE);
-        cipherArea.setOpaque(true);
+        plainArea = new JTextArea(20,20);
+        plainArea.setFont(new Font("Verdana", Font.PLAIN, 12));
+        plainArea.setText("Plaintext here...");
+        plainArea.setEditable(false);
+        plainArea.setBackground(Color.WHITE);
+        plainArea.setOpaque(true);
 
-        cipherPane = new JScrollPane(cipherArea,JScrollPane
+        plainPane = new JScrollPane(plainArea,JScrollPane
                                     .VERTICAL_SCROLLBAR_AS_NEEDED
                                     ,JScrollPane
                                     .HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        cipherTextPane.add(cipherPane,BorderLayout.CENTER);
+        plaintextPane.add(plainPane,BorderLayout.CENTER);
 
-        AGBLayout.addComp(this,cipherTextPane,2,0,1,1,100,100,20,10,20,20
+        AGBLayout.addComp(this,plaintextPane,2,0,1,1,100,100,20,10,20,20
                           ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
     }
 
@@ -177,13 +177,13 @@ public class CipherPanel extends JPanel {
         }
     }
 
-    public void setPlaintext(String plain) {
+    public void setCiphertext(String plain) {
         textArea.setText(plain);
         inputting = true;
     }
 
-    public void setCiphertext(String ciphertext) {
-        cipherArea.setText(ciphertext);
+    public void setPlaintext(String ciphertext) {
+        plainArea.setText(ciphertext);
     }
 
     private class SetCipherListener implements ActionListener {
@@ -213,8 +213,8 @@ public class CipherPanel extends JPanel {
 
     private class ClearTextListener  implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            textArea.setText("Enter plain text here...");
-            cipherArea.setText("Ciphertext here...");
+            textArea.setText("Enter ciphertext here...");
+            plainArea.setText("Plaintext here...");
             inputting = false;
         }
     }
@@ -223,25 +223,25 @@ public class CipherPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             control.clearCipher();
             setMatrix(null);
-            textArea.setText("Enter plain text here...");
-            cipherArea.setText("Ciphertext here...");
+            textArea.setText("Enter ciphertext here...");
+            plainArea.setText("Plaintext here...");
             inputting = false;
         }
     }
 
-    private class EncipherListener implements ActionListener {
+    private class DecipherListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if( inputting ) {
                 try {
-                    control.cipher(textArea.getText());
+                    control.decipher(textArea.getText());
                 } catch(Exception ex) {
                     JOptionPane.showMessageDialog(null,ex.getMessage()
                                                     ,"No Cipher Matrix"
                                                     ,JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null,"Please input plaintext"
-                                                ,"No Plaintext"
+                JOptionPane.showMessageDialog(null,"Please input ciphertext"
+                                                ,"No Ciphertext"
                                                 ,JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -268,7 +268,7 @@ public class CipherPanel extends JPanel {
 
         public void focusLost(FocusEvent e) {
             if(!inputting) {
-                textArea.setText("Enter plain text here...");
+                textArea.setText("Enter ciphertext here...");
             }
         }
     }
