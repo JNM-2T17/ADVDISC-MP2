@@ -125,6 +125,8 @@ public class DecipherPanel extends JPanel {
         enplainPane.setLayout(new BorderLayout());
         
         textArea = new JTextArea(20,20);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
 		textArea.setFont(new Font("Verdana", Font.PLAIN, 12));
         textArea.setText("Enter ciphertext here...");
         textArea.setBackground(Color.WHITE);
@@ -144,6 +146,8 @@ public class DecipherPanel extends JPanel {
         plaintextPane = new JPanel(new BorderLayout());
 
         plainArea = new JTextArea(20,20);
+        plainArea.setLineWrap(true);
+        plainArea.setWrapStyleWord(true);
         plainArea.setFont(new Font("Verdana", Font.PLAIN, 12));
         plainArea.setText("Plaintext here...");
         plainArea.setEditable(false);
@@ -171,10 +175,9 @@ public class DecipherPanel extends JPanel {
                                         ,GridBagConstraints.BOTH);
                 }
             }
-
-            matrixPanel.repaint();
-            matrixPanel.revalidate();
         }
+        matrixPanel.repaint();
+        matrixPanel.revalidate();
     }
 
     public void setCiphertext(String plain) {

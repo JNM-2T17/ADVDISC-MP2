@@ -97,5 +97,7 @@ public class CipherController implements IController {
 
 	public void clearCipher() {
 		cipher = null;
+		cipherPanel.setMatrix(cipher);
+		decipherPanel.setMatrix(cipher);
 	}
 }
