@@ -135,7 +135,7 @@ public class Cipher {
 	 * @param s string to convert
 	 * @return matrix representation of s
 	 */
-	private Matrix convertToMatrix(String s)
+	public Matrix convertToMatrix(String s)
 	{
 		int[][] matrix = new int[cipherDim][(int)Math.ceil(s.length() 
 												* 1.0 / cipherDim)];
