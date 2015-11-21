@@ -75,6 +75,10 @@ public class CipherController implements IController {
 		throws Exception {
 		hill = new Cipher(dim);
 		cipher = hill.deriveCipher(plaintext,ciphertext);
+		if( cipher == null ) {
+			throw new Exception("Matrix cannot be found using the provided " 
+									+ "plaintext and ciphertext."); 
+		}
 		String result = hill.encipher(plaintext,cipher);
 		derivePanel.setMatrix(cipher);
 		cipherPanel.setMatrix(cipher);
@@ -92,15 +96,15 @@ public class CipherController implements IController {
 	public void setScreen(int screen) {
 		switch(screen) {
 			case ENCIPHER:
-				mainWindow.setSize(900,500);
+				mainWindow.setSize(1200,650);
 				mainWindow.setMain(cipherPanel);
 				break;
 			case DECIPHER:
-				mainWindow.setSize(900,500);
+				mainWindow.setSize(1200,650);
 				mainWindow.setMain(decipherPanel);
 				break;
 			case CRACK_CIPHER:
-				mainWindow.setSize(900,500);
+				mainWindow.setSize(1200,650);
 				mainWindow.setMain(derivePanel);
 				break;
 			case MAIN:

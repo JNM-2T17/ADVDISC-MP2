@@ -41,7 +41,7 @@ public class CipherInputFrame extends JFrame {
 		labelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
 		inputLabel = new JLabel("Enter Cipher");
-		inputLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
+		inputLabel.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelPanel.add(inputLabel);
 
 		cipherInputPanel.add(labelPanel,BorderLayout.NORTH);

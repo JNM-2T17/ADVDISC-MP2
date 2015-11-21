@@ -65,16 +65,6 @@ public class MainWindow extends JFrame {
 		itemDerive.addActionListener(new SwitchListener());
 		mnActions.add(itemDerive);
 
-		mnHelp = new JMenu("Help");
-		mnHelp.setForeground(new Color(200,200,255));
-		menuBar.add(mnHelp);
-
-		itemInstructions = new JMenuItem("Instructions");
-		mnHelp.add(itemInstructions);
-
-		itemCredits = new JMenuItem("Credits");
-		mnHelp.add(itemCredits);
-
 		contentPane = new JPanel(new BorderLayout());
 		add(contentPane,BorderLayout.CENTER);
 

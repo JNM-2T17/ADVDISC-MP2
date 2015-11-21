@@ -45,6 +45,7 @@ public class DerivePanel extends JPanel {
     private JButton btnClearText;
     private JButton btnClearAll;
     private JButton btnDerive;
+    private JButton btnHome;
     
     private JPanel plaintextPane;
     private JButton loadPlaintextButton;
@@ -111,7 +112,7 @@ public class DerivePanel extends JPanel {
         btnClearCipher = new JButton("Clear Cipher");
         btnClearCipher.setFont(new Font("Verdana",Font.PLAIN,14));
         btnClearCipher.addActionListener(new ClearCipherListener());
-        AGBLayout.addComp(optionsPane,btnClearCipher,1,2,1,1,100,100,10,5,5,40
+        AGBLayout.addComp(optionsPane,btnClearCipher,1,2,1,1,100,100,10,5,5,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         btnClearText = new JButton("Clear Text");
@@ -123,13 +124,19 @@ public class DerivePanel extends JPanel {
         btnClearAll = new JButton("Clear All");
         btnClearAll.setFont(new Font("Verdana",Font.PLAIN,14));
         btnClearAll.addActionListener(new ClearAllListener());
-        AGBLayout.addComp(optionsPane,btnClearAll,1,3,2,1,100,100,5,5,5,40
+        AGBLayout.addComp(optionsPane,btnClearAll,1,3,2,1,100,100,5,5,5,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
-        btnDerive = new JButton("DERIVE CIPHER");
-        btnDerive.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnDerive = new JButton("Derive Cipher");
+        btnDerive.setFont(new Font("Verdana", Font.BOLD, 14));
         btnDerive.addActionListener(new DeriveListener());
-        AGBLayout.addComp(optionsPane,btnDerive,0,4,2,1,100,100,5,40,10,40
+        AGBLayout.addComp(optionsPane,btnDerive,0,4,2,1,100,100,5,40,5,20
+                          ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+
+        btnHome = new JButton("Home");
+        btnHome.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnHome.addActionListener(new HomeListener());
+        AGBLayout.addComp(optionsPane,btnHome,0,5,2,1,100,100,5,40,10,20
                           ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         AGBLayout.addComp(this,optionsPane,0,0,1,1,100,100,20,20,20,20
@@ -215,6 +222,12 @@ public class DerivePanel extends JPanel {
         inputtingCipher = ciphertext.length() > 0;
     }
 
+    private class HomeListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            control.setScreen(IController.MAIN);
+        }
+    }
+
     private class SaveCipherListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JFileChooser jfc = new JFileChooser();
@@ -267,9 +280,10 @@ public class DerivePanel extends JPanel {
 
     private class ClearTextListener  implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            textArea.setText("Enter ciphertext here...");
-            cipherArea.setText("Plaintext here...");
+            textArea.setText("Enter plain text here...");
+            cipherArea.setText("Enter ciphertext here...");
             inputtingPlain = false;
+            inputtingCipher = false;
         }
     }
 
@@ -277,8 +291,8 @@ public class DerivePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             control.clearCipher();
             setMatrix(null);
-            textArea.setText("Enter ciphertext here...");
-            cipherArea.setText("Plaintext here...");
+            textArea.setText("Enter plaintext here...");
+            cipherArea.setText("Enter ciphertext here...");
             btnSaveCipher.setEnabled(false);
             inputtingPlain = false;
         }

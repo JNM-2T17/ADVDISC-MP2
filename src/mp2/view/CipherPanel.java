@@ -46,6 +46,7 @@ public class CipherPanel extends JPanel {
     private JButton btnClearText;
     private JButton btnClearAll;
     private JButton btnEncipher;
+    private JButton btnHome;
     
     private JPanel encipherPane;
     private JButton loadButton;
@@ -103,7 +104,7 @@ public class CipherPanel extends JPanel {
         btnSetCipher = new JButton("Set Cipher");
         btnSetCipher.setFont(new Font("Verdana", Font.PLAIN, 14));
         btnSetCipher.addActionListener(new SetCipherListener());
-        AGBLayout.addComp(optionsPane,btnSetCipher,0,2,2,1,100,100,10,40,5,40
+        AGBLayout.addComp(optionsPane,btnSetCipher,0,2,2,1,100,100,10,40,5,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         btnSaveCipher = new JButton("Save Cipher");
@@ -115,7 +116,7 @@ public class CipherPanel extends JPanel {
         btnLoadCipher = new JButton("Load Cipher");
         btnLoadCipher.setFont(new Font("Verdana",Font.PLAIN,14));
         btnLoadCipher.addActionListener(new LoadCipherListener());
-        AGBLayout.addComp(optionsPane,btnLoadCipher,1,3,1,1,100,100,5,5,5,40
+        AGBLayout.addComp(optionsPane,btnLoadCipher,1,3,1,1,100,100,5,5,5,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
         
 
@@ -128,19 +129,25 @@ public class CipherPanel extends JPanel {
         btnClearText = new JButton("Clear Text");
         btnClearText.setFont(new Font("Verdana",Font.PLAIN,14));
         btnClearText.addActionListener(new ClearTextListener());
-        AGBLayout.addComp(optionsPane,btnClearText,1,4,1,1,100,100,5,5,5,40
+        AGBLayout.addComp(optionsPane,btnClearText,1,4,1,1,100,100,5,5,5,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         btnClearAll = new JButton("Clear All");
         btnClearAll.setFont(new Font("Verdana",Font.PLAIN,14));
         btnClearAll.addActionListener(new ClearAllListener());
-        AGBLayout.addComp(optionsPane,btnClearAll,0,5,2,1,100,100,5,40,5,40
+        AGBLayout.addComp(optionsPane,btnClearAll,0,5,2,1,100,100,5,40,5,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
-        btnEncipher = new JButton("ENCIPHER");
-        btnEncipher.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnEncipher = new JButton("Encipher");
+        btnEncipher.setFont(new Font("Verdana", Font.BOLD, 14));
         btnEncipher.addActionListener(new EncipherListener());
-        AGBLayout.addComp(optionsPane,btnEncipher,0,6,2,1,100,100,5,40,10,40
+        AGBLayout.addComp(optionsPane,btnEncipher,0,6,2,1,100,100,5,40,5,20
+                          ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+
+        btnHome = new JButton("Home");
+        btnHome.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnHome.addActionListener(new HomeListener());
+        AGBLayout.addComp(optionsPane,btnHome,0,7,2,1,100,100,5,40,10,20
                           ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         AGBLayout.addComp(this,optionsPane,0,0,1,1,100,100,20,20,20,20
@@ -240,6 +247,12 @@ public class CipherPanel extends JPanel {
                                                 + "open", JOptionPane
                                                 .WARNING_MESSAGE );
             }
+        }
+    }
+
+    private class HomeListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            control.setScreen(IController.MAIN);
         }
     }
 

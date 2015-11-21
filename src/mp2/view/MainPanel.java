@@ -27,7 +27,7 @@ public class MainPanel extends JPanel {
 		super(new AGBLayout());
 		this.control = control;
 
-		lblWelcome = new JLabel("WELCOME!");
+		lblWelcome = new JLabel("HILL CIPHER");
 		lblWelcome.setFont(new Font("Verdana", Font.PLAIN, 28));
 		AGBLayout.addComp(this,lblWelcome,0,0,1,1,100,100
 							,GridBagConstraints.CENTER,GridBagConstraints.NONE);
@@ -40,19 +40,19 @@ public class MainPanel extends JPanel {
 		btnCipher = new JButton("ENCIPHER");
 		btnCipher.addActionListener(new SwitchListener());
 		btnCipher.setFont(new Font("Verdana", Font.PLAIN, 20));
-		AGBLayout.addComp(this,btnCipher,0,2,1,2,100,100,10,10,5,10
+		AGBLayout.addComp(this,btnCipher,0,2,1,2,100,100,10,20,5,20
 							,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
 		btnDecipher = new JButton("DECIPHER");
 		btnDecipher.addActionListener(new SwitchListener());
 		btnDecipher.setFont(new Font("Verdana", Font.PLAIN, 20));
-		AGBLayout.addComp(this,btnDecipher,0,4,1,2,100,100,5,10,5,10
+		AGBLayout.addComp(this,btnDecipher,0,4,1,2,100,100,5,20,5,20
 							,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
 		btnDerive = new JButton("DERIVE");
 		btnDerive.addActionListener(new SwitchListener());
 		btnDerive.setFont(new Font("Verdana", Font.PLAIN, 20));
-		AGBLayout.addComp(this,btnDerive,0,6,1,2,100,100,5,10,10,10
+		AGBLayout.addComp(this,btnDerive,0,6,1,2,100,100,5,20,10,20
 							,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
 
