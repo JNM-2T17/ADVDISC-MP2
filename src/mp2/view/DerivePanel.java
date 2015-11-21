@@ -260,6 +260,7 @@ public class DerivePanel extends JPanel {
     private class ClearCipherListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             control.clearCipher();
+            btnSaveCipher.setEnabled(false);
             setMatrix(null);
         }
     }
@@ -268,7 +269,6 @@ public class DerivePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             textArea.setText("Enter ciphertext here...");
             cipherArea.setText("Plaintext here...");
-            btnSaveCipher.setEnabled(false);
             inputtingPlain = false;
         }
     }
@@ -289,6 +289,7 @@ public class DerivePanel extends JPanel {
             if( inputtingPlain ) {
                 if( inputtingCipher ) {
                     try {
+                        btnSaveCipher.setEnabled(true);
                         if(rbtnHill2.isSelected()) {
                             control.derive(textArea.getText()
                                             ,cipherArea.getText(),2);
