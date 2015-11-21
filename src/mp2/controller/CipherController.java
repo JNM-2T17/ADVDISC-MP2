@@ -73,6 +73,10 @@ public class CipherController implements IController {
 
 	}
 
+	public boolean isCipherSet() {
+		return cipher != null;
+	}
+
 	public void setScreen(int screen) {
 		switch(screen) {
 			case ENCIPHER:
@@ -99,5 +103,31 @@ public class CipherController implements IController {
 		cipher = null;
 		cipherPanel.setMatrix(cipher);
 		decipherPanel.setMatrix(cipher);
+	}
+
+	public void loadCipher(String filename) {
+		cipher = FileManager.readCipher(filename);
+		hill = new Cipher(cipher.rowCount());
+		cipherPanel.setMatrix(cipher);
+		decipherPanel.setMatrix(cipher);
+	}
+
+	public void loadPlaintext(String filename) {
+		cipherPanel.setPlaintext(FileManager.readText(filename));
+	}
+
+	public void loadCiphertext(String filename) {
+		decipherPanel.setCiphertext(FileManager.readText(filename));
+	}
+
+	public void saveCipher(String filename) {
+		if( !filename.endsWith(".hill") ) {
+			filename += ".hill";
+		}
+		FileManager.writeCipher(cipher,filename);
+	}
+
+	public void saveText(String text,String filename) {
+		FileManager.writeText(text,filename);
 	}
 }

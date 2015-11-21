@@ -10,37 +10,49 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import mp2.controller.IController;
 import mp2.model.Matrix;
 import mp2.view.layout.AGBLayout;
 
 public class DecipherPanel extends JPanel {
-    private JPanel enplainPane;
     private JPanel optionsPane;
+    
     private JPanel choicePane;
     private JLabel choiceLabel;
     private JRadioButton rbtnHill2;
     private JRadioButton rbtnHill3;
     private ButtonGroup whichCipher;
+    
     private JPanel matrixPanel;
+    
     private JButton btnSetCipher;
+    private JButton btnSaveCipher;
+    private JButton btnLoadCipher;
     private JButton btnClearCipher;
     private JButton btnClearText;
     private JButton btnClearAll;
     private JButton btnDecipher;
+    
+    private JPanel cipherPane;
+    private JButton loadButton;
     private JScrollPane textPane;
     private JTextArea textArea;
+    
     private JPanel plaintextPane;
+    private JButton saveButton;
     private JScrollPane plainPane;
     private JTextArea plainArea;
     
@@ -90,40 +102,57 @@ public class DecipherPanel extends JPanel {
         btnSetCipher = new JButton("Set Cipher");
         btnSetCipher.setFont(new Font("Verdana", Font.PLAIN, 14));
         btnSetCipher.addActionListener(new SetCipherListener());
-        AGBLayout.addComp(optionsPane,btnSetCipher,0,2,1,1,100,100,10,40,5,5
+        AGBLayout.addComp(optionsPane,btnSetCipher,0,2,2,1,100,100,10,40,5,40
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+
+        btnSaveCipher = new JButton("Save Cipher");
+        btnSaveCipher.setFont(new Font("Verdana",Font.PLAIN,14));
+        btnSaveCipher.addActionListener(new SaveCipherListener());
+        AGBLayout.addComp(optionsPane,btnSaveCipher,0,3,1,1,100,100,5,40,5,5
+                        ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+
+        btnLoadCipher = new JButton("Load Cipher");
+        btnLoadCipher.setFont(new Font("Verdana",Font.PLAIN,14));
+        btnLoadCipher.addActionListener(new LoadCipherListener());
+        AGBLayout.addComp(optionsPane,btnLoadCipher,1,3,1,1,100,100,5,5,5,40
+                        ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
+        
 
         btnClearCipher = new JButton("Clear Cipher");
         btnClearCipher.setFont(new Font("Verdana",Font.PLAIN,14));
         btnClearCipher.addActionListener(new ClearCipherListener());
-        AGBLayout.addComp(optionsPane,btnClearCipher,1,2,1,1,100,100,10,5,5,40
+        AGBLayout.addComp(optionsPane,btnClearCipher,0,4,1,1,100,100,5,40,5,5
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         btnClearText = new JButton("Clear Text");
         btnClearText.setFont(new Font("Verdana",Font.PLAIN,14));
         btnClearText.addActionListener(new ClearTextListener());
-        AGBLayout.addComp(optionsPane,btnClearText,0,3,1,1,100,100,5,40,5,5
+        AGBLayout.addComp(optionsPane,btnClearText,1,4,1,1,100,100,5,5,5,40
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         btnClearAll = new JButton("Clear All");
         btnClearAll.setFont(new Font("Verdana",Font.PLAIN,14));
         btnClearAll.addActionListener(new ClearAllListener());
-        AGBLayout.addComp(optionsPane,btnClearAll,1,3,1,1,100,100,5,5,5,40
+        AGBLayout.addComp(optionsPane,btnClearAll,0,5,2,1,100,100,5,40,5,40
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
-
 
         btnDecipher = new JButton("DECIPHER");
         btnDecipher.setFont(new Font("Verdana", Font.PLAIN, 14));
         btnDecipher.addActionListener(new DecipherListener());
-        AGBLayout.addComp(optionsPane,btnDecipher,0,4,2,1,100,100,5,40,10,40
+        AGBLayout.addComp(optionsPane,btnDecipher,0,6,2,1,100,100,5,40,10,40
                           ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         AGBLayout.addComp(this,optionsPane,0,0,1,1,100,100,20,20,20,20
                         ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
-        enplainPane = new JPanel();
-        enplainPane.setLayout(new BorderLayout());
+        cipherPane = new JPanel();
+        cipherPane.setLayout(new BorderLayout());
         
+        loadButton = new JButton("Load Ciphertext File");
+        loadButton.addActionListener(new LoadCiphertextListener());
+        loadButton.setFont(new Font("Verdana",Font.PLAIN,14));
+        cipherPane.add(loadButton,BorderLayout.NORTH);
+
         textArea = new JTextArea(20,20);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -138,12 +167,18 @@ public class DecipherPanel extends JPanel {
                                     .VERTICAL_SCROLLBAR_AS_NEEDED
                                     ,JScrollPane
                                     .HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		enplainPane.add(textPane,BorderLayout.CENTER);
+		cipherPane.add(textPane,BorderLayout.CENTER);
 
-        AGBLayout.addComp(this,enplainPane,1,0,1,1,100,100,20,0,20,10
+        AGBLayout.addComp(this,cipherPane,1,0,1,1,100,100,20,0,20,10
                           ,GridBagConstraints.CENTER,GridBagConstraints.BOTH);
 
         plaintextPane = new JPanel(new BorderLayout());
+
+        saveButton = new JButton("Save Plaintext File");
+        saveButton.addActionListener(new SavePlaintextListener());
+        saveButton.setEnabled(false);
+        saveButton.setFont(new Font("Verdana",Font.PLAIN,14));
+        plaintextPane.add(saveButton,BorderLayout.NORTH);
 
         plainArea = new JTextArea(20,20);
         plainArea.setLineWrap(true);
@@ -207,6 +242,68 @@ public class DecipherPanel extends JPanel {
         }
     }
 
+    private class SaveCipherListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if( control.isCipherSet()) {
+                JFileChooser jfc = new JFileChooser();
+                jfc.setAcceptAllFileFilterUsed(false);
+                jfc.setCurrentDirectory(
+                    new File(System.getProperty("user.dir")));
+                jfc.setFileFilter(new FileNameExtensionFilter("Hill Ciphers","hill"));
+
+                if( jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ) {
+                    control.saveCipher(jfc.getSelectedFile().getAbsolutePath());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null,"Please input a cipher " 
+                                                + "matrix.","No Cipher Matrix"
+                                                ,JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private class LoadCipherListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser jfc = new JFileChooser();
+            jfc.setAcceptAllFileFilterUsed(false);
+            jfc.setCurrentDirectory(
+                new File(System.getProperty("user.dir")));
+            jfc.setFileFilter(new FileNameExtensionFilter("Hill Ciphers","hill"));
+
+            if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                control.loadCipher(jfc.getSelectedFile().getAbsolutePath());
+            }
+        }
+    }
+
+    private class SavePlaintextListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+                JFileChooser jfc = new JFileChooser();
+                jfc.setAcceptAllFileFilterUsed(false);
+                jfc.setCurrentDirectory(
+                    new File(System.getProperty("user.dir")));
+
+                if( jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ) {
+                    control.saveText(plainArea.getText(),jfc.getSelectedFile()
+                                        .getAbsolutePath());
+                }
+        }
+    }
+
+    private class LoadCiphertextListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser jfc = new JFileChooser();
+                jfc.setAcceptAllFileFilterUsed(false);
+                jfc.setCurrentDirectory(
+                    new File(System.getProperty("user.dir")));
+
+                if( jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    control.loadCiphertext(jfc.getSelectedFile()
+                                            .getAbsolutePath());
+                }
+        }
+    }
+
     private class ClearCipherListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             control.clearCipher();
@@ -218,6 +315,7 @@ public class DecipherPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             textArea.setText("Enter ciphertext here...");
             plainArea.setText("Plaintext here...");
+            saveButton.setEnabled(false);
             inputting = false;
         }
     }
@@ -228,6 +326,7 @@ public class DecipherPanel extends JPanel {
             setMatrix(null);
             textArea.setText("Enter ciphertext here...");
             plainArea.setText("Plaintext here...");
+            saveButton.setEnabled(false);
             inputting = false;
         }
     }
@@ -237,6 +336,7 @@ public class DecipherPanel extends JPanel {
             if( inputting ) {
                 try {
                     control.decipher(textArea.getText());
+                    saveButton.setEnabled(true);
                 } catch(Exception ex) {
                     JOptionPane.showMessageDialog(null,ex.getMessage()
                                                     ,"No Cipher Matrix"

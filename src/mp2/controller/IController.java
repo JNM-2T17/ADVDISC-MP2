@@ -14,5 +14,11 @@ public interface IController {
 	public void decipher(String ciphertext) throws Exception;
 	public void derive(String plaintext, String ciphertext);
 	public void setScreen(int screen);
+	public boolean isCipherSet();
 	public void clearCipher();
+	public void loadCipher(String filename);
+	public void loadPlaintext(String filename);
+	public void loadCiphertext(String filename);
+	public void saveCipher(String filename);
+	public void saveText(String text,String filename);
 }
