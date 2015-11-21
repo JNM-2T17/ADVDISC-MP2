@@ -12,7 +12,8 @@ public interface IController {
 	public void inputCipher(int dim) throws Exception;
 	public void cipher(String plaintext) throws Exception;
 	public void decipher(String ciphertext) throws Exception;
-	public void derive(String plaintext, String ciphertext);
+	public void derive(String plaintext, String ciphertext,int dim) 
+		throws Exception;
 	public void setScreen(int screen);
 	public boolean isCipherSet();
 	public void clearCipher();

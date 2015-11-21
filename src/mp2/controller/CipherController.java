@@ -12,6 +12,7 @@ public class CipherController implements IController {
 	private MainPanel mainPanel;
 	private CipherPanel cipherPanel;
 	private DecipherPanel decipherPanel;
+	private DerivePanel derivePanel;
 	private CipherInputFrame cipherInputFrame;
 
 	public CipherController() {
@@ -22,6 +23,7 @@ public class CipherController implements IController {
 		cipherPanel = new CipherPanel(this);
 		decipherPanel = new DecipherPanel(this);
 		cipherInputFrame = new CipherInputFrame(this);
+		derivePanel = new DerivePanel(this);
 		setScreen(MAIN);
 
 	}
@@ -69,8 +71,18 @@ public class CipherController implements IController {
 		}
 	}
 
-	public void derive(String plaintext, String ciphertext) {
-
+	public void derive(String plaintext, String ciphertext, int dim) 
+		throws Exception {
+		hill = new Cipher(dim);
+		cipher = hill.deriveCipher(plaintext,ciphertext);
+		String result = hill.encipher(plaintext,cipher);
+		derivePanel.setMatrix(cipher);
+		cipherPanel.setMatrix(cipher);
+		decipherPanel.setMatrix(cipher);
+		if( !result.trim().equals(ciphertext.trim()) ) {
+			throw new Exception("An exact matrix is impossible. The closest" 
+								+ " matrix has been computed."); 
+		}
 	}
 
 	public boolean isCipherSet() {
@@ -88,7 +100,8 @@ public class CipherController implements IController {
 				mainWindow.setMain(decipherPanel);
 				break;
 			case CRACK_CIPHER:
-				mainWindow.setMain(null);
+				mainWindow.setSize(900,500);
+				mainWindow.setMain(derivePanel);
 				break;
 			case MAIN:
 			default:
@@ -103,6 +116,7 @@ public class CipherController implements IController {
 		cipher = null;
 		cipherPanel.setMatrix(cipher);
 		decipherPanel.setMatrix(cipher);
+		derivePanel.setMatrix(cipher);
 	}
 
 	public void loadCipher(String filename) {
@@ -114,10 +128,12 @@ public class CipherController implements IController {
 
 	public void loadPlaintext(String filename) {
 		cipherPanel.setPlaintext(FileManager.readText(filename));
+		derivePanel.setPlaintext(FileManager.readText(filename));
 	}
 
 	public void loadCiphertext(String filename) {
 		decipherPanel.setCiphertext(FileManager.readText(filename));
+		derivePanel.setCiphertext(FileManager.readText(filename));
 	}
 
 	public void saveCipher(String filename) {

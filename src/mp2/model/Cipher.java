@@ -73,7 +73,8 @@ public class Cipher {
 		cipherText = pump(cipherText);
 
 		//pump plaintext
-		while(plainText.length() < cipherText.length() ) {
+		while(plainText.length() < cipherText.length() 
+				|| plainText.length() < cipherDim * cipherDim ) {
 			plainText += " ";
 		}
 
@@ -87,9 +88,6 @@ public class Cipher {
 
 		//reduce plaintext matrix to reduced row echelon
 		Matrix rre = m2.reducedRowEchelon();
-		if( rre.determinant() == 0 || m1.determinant() == 0) {
-			return null;
-		}
 
 		//find leading 1's
 		int[] leaders = new int[cipherDim];
@@ -124,6 +122,11 @@ public class Cipher {
 
 			Matrix c = new ModularMatrix(cMatrix);
 			Matrix p = new ModularMatrix(pMatrix);
+
+			if( c.determinant() == 0 || p.determinant() == 0 ) {
+				return null;
+			}
+			
 			c.augment(p);
 			c = c.reducedRowEchelon();
 			return c.getAugment(0).transpose().invert();
