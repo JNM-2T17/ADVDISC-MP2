@@ -13,6 +13,8 @@
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\CipherPanel.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\DecipherPanel.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\DerivePanel.java"
+"C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\ITrace.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\MainPanel.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\MainWindow.java"
+"C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\TraceFrame.java"
 "C:\\DLSU\\Term 7\\ADVDISC\\Requirements\\ADVDISC-MP2\\src\\mp2\\view\\layout\\AGBLayout.java"

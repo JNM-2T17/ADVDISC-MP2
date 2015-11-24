@@ -1,5 +1,7 @@
 package mp2.model;
 
+import mp2.view.ITrace;
+
 /**
  * Handles enciphering, deciphering, and cipher cracking
  * @author Jonah Syfu
@@ -7,13 +9,25 @@ package mp2.model;
  */
 public class Cipher {
 	private int cipherDim;
+	private ITrace observer;
+	private boolean trace;
 
 	/**
 	 * basic constructor
 	 * @param x dimension of cipher matrices
 	 */
-	public Cipher(int x) {
+	public Cipher(int x, ITrace observer) {
 		cipherDim = x;
+		this.observer = observer;
+		trace = true;
+	}
+
+	/**
+	 * sets whether to trace the operations or not
+	 * @param trace whether to trace of not.
+	 */
+	public void setTrace(boolean trace) {
+		this.trace = trace;
 	}
 
 	/**
@@ -23,8 +37,24 @@ public class Cipher {
 	 * @return enciphered string
 	 */
 	public String encipher(String s, Matrix m) {
-		Matrix i = m.invert();
-		return convertToString(m.multiply(convertToMatrix(s)));
+		if(trace) {
+			observer.clear();
+			observer.print("A = cipher matrix\nB = plaintext\nC = " + 
+							"ciphertext\n\nC = AB\n");
+			observer.print("A = \n" + m);
+		}
+		
+		Matrix b = convertToMatrix(s);
+		if(trace) {
+			observer.print("\nB = \n" + b);
+		}
+		
+		Matrix c = m.multiply(b);
+		if(trace) {
+			observer.print("\nC = \n" + c);
+		}
+		
+		return convertToString(c);
 	}
 
 	/**
@@ -35,7 +65,24 @@ public class Cipher {
 	 */
 	public String decipher(String s, Matrix m) {
 		Matrix i = m.invert();
-		return convertToString(m.invert().multiply(convertToMatrix(s)));
+		if( trace ) {
+			observer.clear();
+			observer.print("A = cipher matrix\nB = plaintext\nC = ciphertext" 
+							+ "\n\nB = A^-1C\n");
+			observer.print("A^-1 = \n" + i);
+		}
+		
+		Matrix c = convertToMatrix(s);
+		if( trace ) {
+			observer.print("\nC = \n" + c);
+		}
+		
+		Matrix b = i.multiply(c);
+		if( trace ) {
+			observer.print("\nB = \n" + b);
+		}
+		
+		return convertToString(b);
 	}
 
 	/**
@@ -69,6 +116,10 @@ public class Cipher {
 	 * @return enciphering matrix
 	 */
 	public Matrix deriveCipher(String plainText, String cipherText) {
+		if(trace) {
+			observer.clear();
+		}
+
 		plainText = pump(plainText);
 		cipherText = pump(cipherText);
 
@@ -86,13 +137,23 @@ public class Cipher {
 		Matrix m1 = convertToMatrix(cipherText);
 		Matrix m2 = convertToMatrix(plainText);
 
+		if(trace) {
+			observer.print("Ciphertext vectors\n" + m1 + "\nPlaintext vectors\n" 
+						+ m2);
+		}
+
+
 		//reduce plaintext matrix to reduced row echelon
 		Matrix rre = m2.reducedRowEchelon();
+		if(trace) {
+			observer.print("\nReduced Row Echelon of Plaintext Vectors\n" 
+							+ rre);
+		}
+
 
 		//find leading 1's
 		int[] leaders = new int[cipherDim];
 		int leaderCtr = 0;
-
 
 		for( int i = 0; leaderCtr < cipherDim && i < rre.rowCount(); i++ ) {
 			for(int j = 0; j < rre.colCount(); j++) {
@@ -128,8 +189,32 @@ public class Cipher {
 			}
 			
 			c.augment(p);
-			c = c.reducedRowEchelon();
-			return c.getAugment(0).transpose().invert();
+			
+			if(trace) {
+				observer.print("\n\nTransposed Linearly Independent Ciphertext " 
+							+ "Vectors|Plaintext Vectors\n" + c + "\n");
+			}
+
+			Matrix c2 = c.reducedRowEchelon();
+
+			if(trace) {
+				observer.print(c.rreTrace());
+			}
+
+
+			Matrix cipherMatrix = c2.getAugment(0).transpose();
+			if(trace) {
+				observer.print("Deciphering Matrix: \n" + cipherMatrix);
+			}
+
+			cipherMatrix = cipherMatrix.invert();
+			if(trace) {
+				observer.print("\nEnciphering Matrix(inverse): \n" 
+								+ cipherMatrix);
+			}
+
+						
+			return cipherMatrix;
 		}
 	}
 

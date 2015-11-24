@@ -7,6 +7,7 @@ public interface IController {
 	public static final int DECIPHER = 1;
 	public static final int CRACK_CIPHER = 2;
 	public static final int MAIN = 3;
+	public static final int TRACE = 4;
 
 	public void setCipher(int[][] cipher) throws InvalidCipherException;
 	public void inputCipher(int dim) throws Exception;

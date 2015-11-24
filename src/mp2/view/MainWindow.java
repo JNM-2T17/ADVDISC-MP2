@@ -27,9 +27,8 @@ public class MainWindow extends JFrame {
 	JMenuItem itemEncipher;
 	JMenuItem itemDecipher;
 	JMenuItem itemDerive;
-	JMenu mnHelp;
-	JMenuItem itemInstructions;
-	JMenuItem itemCredits;
+	JMenu mnInfo;
+	JMenuItem itemTrace;
 
 	IController control;
 
@@ -65,6 +64,14 @@ public class MainWindow extends JFrame {
 		itemDerive.addActionListener(new SwitchListener());
 		mnActions.add(itemDerive);
 
+		mnInfo = new JMenu("Info");
+		mnInfo.setForeground(new Color(200,200,255));
+		menuBar.add(mnInfo);
+
+		itemTrace = new JMenuItem("Trace");
+		itemTrace.addActionListener(new TraceListener());
+		mnInfo.add(itemTrace);
+
 		contentPane = new JPanel(new BorderLayout());
 		add(contentPane,BorderLayout.CENTER);
 
@@ -98,5 +105,11 @@ public class MainWindow extends JFrame {
 					control.setScreen(IController.MAIN);
 			}
 		}	
+	}
+
+	public class TraceListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			control.setScreen(IController.TRACE);
+		}
 	}
 }

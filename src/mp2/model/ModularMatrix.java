@@ -7,6 +7,8 @@ import mp2.Driver;
  * @author Austin Fernandez
  */
 public class ModularMatrix extends AbstractMatrix {
+	private String trace;
+
 	/**
 	 * sets all values modulo modulus in Driver
 	 * @param grid contents of matrix
@@ -18,6 +20,7 @@ public class ModularMatrix extends AbstractMatrix {
 				matrix[i][j] = ModArith.modulo(matrix[i][j],Driver.MODULUS);
 			}
 		}
+		trace = "";
 	}
 
 	/**
@@ -175,24 +178,23 @@ public class ModularMatrix extends AbstractMatrix {
 				if( nonzero ) {
 					if(dummy.get(rowSwitch,col) == 1 && i != rowSwitch) {
 						dummy.switchRow(i,rowSwitch);	
-						// System.out.println("R" + (i + 1) + "<-> R" + (rowSwitch + 1) + "\n" 
-						// 					+ dummy);
+						trace += ("R" + (i + 1) + "<-> R" + (rowSwitch + 1) 
+									+ "\n" + dummy + "\n");
 					} else if( dummy.get(i,col) != 1 ) {
 						int temp = ModArith.modInverse(dummy.get(i,col)
 														,Driver.MODULUS);
 						dummy.scalarRow(temp,i);
-						// System.out.println(temp + "R" + (i + 1) 
-						// 					+ "-> R" + (rowSwitch + 1) + "\n" 
-						// 					+ dummy);
+						trace += (temp + "R" + (i + 1) + "-> R" 
+									+ (rowSwitch + 1) + "\n" + dummy + "\n");
 					}
 					
 					for(int j = i + 1; j < rowCount(); j++ ) {
 						if( dummy.get(j,col) != 0 ) {
 							int temp = dummy.get(j,col);
 							dummy.addColumn(-temp,i,j);
-							// System.out.println(-temp + "R" + (i + 1) 
-							// 					+ " + R" + (j + 1) + "-> R" + (j + 1) + "\n" 
-							// 					+ dummy);
+							trace += (-temp + "R" + (i + 1) 
+										+ " + R" + (j + 1) + "-> R" + (j + 1) 
+										+ "\n" + dummy + "\n");
 						}
 					}
 				} 
@@ -212,13 +214,16 @@ public class ModularMatrix extends AbstractMatrix {
 				for( int j = i - 1; j >= 0; j-- ) {
 					int temp = dummy.get(j,leader);
 					dummy.addColumn(-temp,i,j);
-					// System.out.println(-temp + "R" + (i + 1) 
-					// 							+ " + R" + (j + 1) + "-> R" + (j + 1) + "\n" 
-					// 							+ dummy);
+					trace += (-temp + "R" + (i + 1) + " + R" + (j + 1) + "-> R" 
+								+ (j + 1) + "\n" + dummy + "\n");
 				}
 			}
 		}
 
 		return dummy;
+	}
+
+	public String rreTrace() {
+		return trace;
 	}
 }

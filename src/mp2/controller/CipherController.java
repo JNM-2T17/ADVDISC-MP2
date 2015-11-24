@@ -14,6 +14,7 @@ public class CipherController implements IController {
 	private DecipherPanel decipherPanel;
 	private DerivePanel derivePanel;
 	private CipherInputFrame cipherInputFrame;
+	private ITrace traceFrame;
 
 	public CipherController() {
 		cipher = null;
@@ -24,6 +25,7 @@ public class CipherController implements IController {
 		decipherPanel = new DecipherPanel(this);
 		cipherInputFrame = new CipherInputFrame(this);
 		derivePanel = new DerivePanel(this);
+		traceFrame = new TraceFrame();
 		setScreen(MAIN);
 
 	}
@@ -39,7 +41,7 @@ public class CipherController implements IController {
 												+ Driver.MODULUS + ".");
 		} else {
 			this.cipher = newCipher;
-			hill = new Cipher(this.cipher.rowCount());
+			hill = new Cipher(this.cipher.rowCount(),traceFrame);
 			cipherPanel.setMatrix(this.cipher);
 			decipherPanel.setMatrix(this.cipher);
 			cipherInputFrame.setVisible(false);
@@ -73,13 +75,15 @@ public class CipherController implements IController {
 
 	public void derive(String plaintext, String ciphertext, int dim) 
 		throws Exception {
-		hill = new Cipher(dim);
+		hill = new Cipher(dim,traceFrame);
 		cipher = hill.deriveCipher(plaintext,ciphertext);
 		if( cipher == null ) {
 			throw new Exception("Matrix cannot be found using the provided " 
 									+ "plaintext and ciphertext."); 
 		}
+		hill.setTrace(false);
 		String result = hill.encipher(plaintext,cipher);
+		hill.setTrace(true);
 		derivePanel.setMatrix(cipher);
 		cipherPanel.setMatrix(cipher);
 		decipherPanel.setMatrix(cipher);
@@ -107,6 +111,9 @@ public class CipherController implements IController {
 				mainWindow.setSize(1200,650);
 				mainWindow.setMain(derivePanel);
 				break;
+			case TRACE:
+				traceFrame.setVisible(true);
+				break;
 			case MAIN:
 			default:
 				mainWindow.setSize(375,500);
@@ -125,7 +132,7 @@ public class CipherController implements IController {
 
 	public void loadCipher(String filename) {
 		cipher = FileManager.readCipher(filename);
-		hill = new Cipher(cipher.rowCount());
+		hill = new Cipher(cipher.rowCount(),traceFrame);
 		cipherPanel.setMatrix(cipher);
 		decipherPanel.setMatrix(cipher);
 	}

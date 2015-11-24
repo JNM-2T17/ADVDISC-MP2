@@ -93,4 +93,10 @@ public interface Matrix {
 	 * @return reduced row echelon form of this matrix
 	 */
 	public Matrix reducedRowEchelon();
+
+	/**
+	 * returns the trace of the reduced row echelon derivation, if any
+	 * @return reduced row echelon trace
+	 */
+	public String rreTrace();
 }
